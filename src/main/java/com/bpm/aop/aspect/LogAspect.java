@@ -2,10 +2,11 @@ package com.bpm.aop.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.slf4j.Logger;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -21,13 +22,17 @@ import java.util.Arrays;
 public class LogAspect {
 
     @Pointcut("execution(public * com.bpm.aop.web.*.*(..))")
-    public void log(){
-
+    public void log() {
     }
 
+    /**
+     * 前置通知
+     *
+     * @param joinPoint
+     */
     @Before("log()")
-    public void doBefore(JoinPoint joinPoint){
-        ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+    public void doBefore(JoinPoint joinPoint) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         // url
         log.info("url={}", request.getRequestURL());
@@ -41,6 +46,11 @@ public class LogAspect {
         log.info("args={}", Arrays.asList(joinPoint.getArgs()));
     }
 
+    /**
+     * 返回通知
+     *
+     * @param resp
+     */
     @AfterReturning(returning = "resp", pointcut = "log()")
     public void doAfter(Object resp) {
         log.info("response={}", resp);

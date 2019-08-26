@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.Date;
+
 /**
  * Created by bearPotMan on 2019/8/26 14:14.
  */
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setPhone(phone);
         user.setPassword(getMd5(phone, password));
+        user.setCreateTime(new Date());
         userRepository.save(user);
         return ResultUtil.success();
     }
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     // md5加密
-    public String getMd5(String phone, String password) {
+    private String getMd5(String phone, String password) {
         String salt = "^#)$^&$$!~@+(,.';-`";
         byte[] bytes = new StringBuilder(phone).append(password).append(salt).toString().getBytes();
         String md5DigestAsHex = DigestUtils.md5DigestAsHex(bytes);

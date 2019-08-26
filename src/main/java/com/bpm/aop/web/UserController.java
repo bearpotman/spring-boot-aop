@@ -15,11 +15,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 注册
+     *
+     * @param phone
+     * @param password
+     * @return
+     */
     @PostMapping("/register")
     public Result register(String phone, String password) {
         return userService.register(phone, password);
     }
 
+    /**
+     * 登录
+     *
+     * @param phone
+     * @param password
+     * @return
+     */
     @PostMapping("/login")
     public Result login(String phone, String password) {
         return userService.login(phone, password);

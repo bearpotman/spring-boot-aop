@@ -2,8 +2,13 @@ server:
   port: 8081
 spring:
   datasource:
-    # ����Դ��������
     url: jdbc:mysql://127.0.0.1:3306/spring_boot_aop?characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      # update: 没有表就新建，有表则更新
+      ddl-auto: update
+    # 控制台显示sql语句（正式环境还是不要用）
+    show-sql: true
