@@ -6,6 +6,7 @@ import com.bpm.aop.repository.UserRepository;
 import com.bpm.aop.service.UserService;
 import com.bpm.aop.util.ResultUtil;
 import com.bpm.aop.vo.Result;
+import com.bpm.aop.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -59,7 +60,10 @@ public class UserServiceImpl implements UserService {
         if (!md5.equals(user.getPassword())) {
             return ResultUtil.error(ResultEnum.PASSWORD_ERROR);
         }
-        return ResultUtil.success(user);
+        UserVO userVO = new UserVO();
+        userVO.setUserId(user.getId());
+        userVO.setPhone(user.getPhone());
+        return ResultUtil.success(userVO);
     }
 
     // md5加密
