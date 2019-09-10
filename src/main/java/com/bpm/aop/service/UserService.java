@@ -24,4 +24,12 @@ public interface UserService {
      * @return
      */
     Result login(String phone, String password);
+
+    /**
+     * 根据手机号获取用户信息（测试）
+     *
+     * @param phone
+     * @return
+     */
+    Result getUserByPhone(String phone);
 }

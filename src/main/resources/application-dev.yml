@@ -12,5 +12,8 @@ spring:
       ddl-auto: update
     # 控制台显示sql语句（正式环境还是不要用）
     show-sql: true
+  redis:
+    host: 127.0.0.1
+    port: 32579
 logging:
   config: classpath:logback-dev.xml
